@@ -1,4 +1,4 @@
-package aranoua.com.inferfacedimensao;
+package aranoua.com.interfacedimensao;
 
 public interface InterfaceDimensao {
 	int TAMANHO = 2;

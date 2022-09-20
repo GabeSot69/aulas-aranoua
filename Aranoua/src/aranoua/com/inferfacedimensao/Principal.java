@@ -1,4 +1,4 @@
-package aranoua.com.inferfacedimensao;
+package aranoua.com.interfacedimensao;
 
 import java.util.Scanner;
 
@@ -20,7 +20,17 @@ public class Principal {
 				case "1":
 					menuVetor();
 					break;
-				
+				case "2":
+					menuMatriz();
+					break;
+				case "0":
+					System.out.println("SAINDO...");
+					System.exit(0);
+					break;
+				default:
+					System.out.println("CARACTERE INVALIDO");
+					System.out.println();
+
 			}
 		}
 	}
@@ -37,41 +47,109 @@ public class Principal {
 			case "2": 
 				vetorAdicionarTamEspecifico();
 				break;
+			default:
+				System.out.println("CARACTERE INVALIDO");
+				System.out.println();
 		}
 	}
-	
-	public static void vetorAdicionarPadrao() {
-		VetorUnidimensional unidimensional = new VetorUnidimensional();
+
+	public static void menuMatriz(){
+		System.out.println("MENU DE MATRIZ");
+		System.out.println("1 - Matriz Com Tamanho Padrao (2)(2)");
+		System.out.println("2 - Matriz Com Tamanho Definido Pelo Usuario");
+		String escolha = scanner.nextLine();
+		switch(escolha) {
+			case "1":
+				matrizAdicionarPadrao();
+				break;
+			case "2":
+				matrizAdicionarTamEspecifico();
+				break;
+			default:
+				System.out.println("CARACTERE INVALIDO");
+				System.out.println();
+		}
+	}
+
+	public static void adicionar(VetorUnidimensional vetor){
 		while (true) {
 			try {
-				System.out.println("Digite um numero para adicionar");
+				System.out.println("Digite um numero para adicionar ou 0 para concluir");
 				int valor = scanner.nextInt();
-				unidimensional.adicionar(valor);
-				unidimensional.imprimir();
+				if (valor == 0){
+					break;
+				}
+				vetor.adicionar(valor);
 			} catch (MyClassException e) {
-				System.out.println(e.aviso());
-				break;
+				System.out.println(e.tamanhoUltrapassado());
+				System.out.println();
 			}
 		}
+		scanner.nextLine();
+		vetor.imprimir();
+	}
+
+	public static void adicionar(MatrizBidimensional matriz){
+		while (true) {
+			try {
+				System.out.println("Digite um numero para adicionar ou 0 para concluir");
+				int valor = scanner.nextInt();
+				if (valor == 0){
+					break;
+				}
+				matriz.adicionar(valor);
+			} catch (MyClassException e) {
+				System.out.println(e.tamanhoUltrapassado());
+				System.out.println();
+			}
+		}
+		scanner.nextLine();
+		matriz.imprimir();
+	}
+	public static void vetorAdicionarPadrao() {
+		VetorUnidimensional unidimensional = new VetorUnidimensional();
+		adicionar(unidimensional);
 	}
 	
 	public static void vetorAdicionarTamEspecifico() {
 		int tam;
 		VetorUnidimensional unidimensional;
-		try {
-			System.out.println("Digite o Tamanho");
-			tam = scanner.nextInt();
-			unidimensional = new VetorUnidimensional(tam);
-			while (true) {
-				System.out.println("Digite um numero para adicionar");
-				int valor = scanner.nextInt();
-				unidimensional.adicionar(valor);
-				unidimensional.imprimir();
+		while (true) {
+			try {
+				System.out.println("Digite o Tamanho");
+				tam = scanner.nextInt();
+				unidimensional = new VetorUnidimensional(tam);
+				break;
+			} catch (MyClassException e) {
+				System.out.println(e.tamanhoInvalido());
 			}
-		} catch (MyClassException e) {
-			System.out.println(e.aviso());
 		}
-		
+		adicionar(unidimensional);
+	}
+
+	public static void matrizAdicionarPadrao() {
+		MatrizBidimensional bidimensional = new MatrizBidimensional();
+		adicionar(bidimensional);
+
+	}
+
+	public static void matrizAdicionarTamEspecifico(){
+		int tamLinhas = 0,tamColunas = 0;
+		MatrizBidimensional bidimensional;
+		while (true) {
+			try {
+				System.out.println("Digite o Tamanho de Linhas");
+				tamLinhas = scanner.nextInt();
+				System.out.println("Digite o Tamanho de Colunas");
+				tamColunas = scanner.nextInt();
+				bidimensional = new MatrizBidimensional(tamLinhas,tamColunas);
+				break;
+			} catch (MyClassException e) {
+				System.out.println(e.tamanhoInvalido());
+			}
+		}
+		adicionar(bidimensional);
+
 	}
 	
 	

@@ -1,9 +1,9 @@
-package aranoua.com.inferfacedimensao;
+package aranoua.com.interfacedimensao;
 
 import java.util.Arrays;
 
 public class VetorUnidimensional implements InterfaceDimensao {
-	private int dim1[];
+	private int  dim1[];
 	protected int linha;
 	
 	VetorUnidimensional(){
@@ -29,10 +29,12 @@ public class VetorUnidimensional implements InterfaceDimensao {
 
 	public void adicionar(int valor) throws MyClassException {
 		if (linha == dim1.length) {
+			linha = 0;
 			throw new MyClassException();
 		}
 		dim1[linha] = valor;
 		linha++;
 	}
+
 
 }
